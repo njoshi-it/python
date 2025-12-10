@@ -1,8 +1,5 @@
-
-def my_function(*numbers):
-  total = 0
-  for num in numbers:
-    total += num
-  return total
-
-print(my_function(1, 2, 3,4,5,6,7,8,9,10))
+import random
+def roll(): return random.randint(1, 6)
+def func() :
+    for r in iter(roll, 6):   # keep rolling until we get a 6 (6 is sentinel)
+    return r
