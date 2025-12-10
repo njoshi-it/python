@@ -1,7 +1,16 @@
-import camelcase
+import openai
 
-c = camelcase.CamelCase()
+# Set your API key
+openai.api_key = "YOUR_API_KEY_HERE"
 
-txt = "lorem ipsum dolor sit amet"
+# Call the GPT model
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain virtual environments in Python."}
+    ]
+)
 
-print(c.hump(txt))
+# Print the AI's response
+print(response.choices[0].message.content)
