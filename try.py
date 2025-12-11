@@ -91,3 +91,18 @@ p1 = Person("Emil", 25)
 print(p1.name)  
 print(p1.fnc())  # Accessing private property via public method
 print(p1._Person__age)  # Accessing private property using name mangling
+
+class Outer:
+  def __init__(self):
+    self.name = "Outer"
+
+  class Inner:
+    def __init__(self):
+      self.name = "Inner"
+
+    def display(self):
+      print("Hello from inner class")
+
+outer = Outer()
+inner = outer.Inner()  # Creating instance of inner class
+inner.display()
