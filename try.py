@@ -78,3 +78,16 @@ x = Student("Mike", "Olsen")
 x.printname()
 y= Student("ram", "tam")
 y.printname()
+
+
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.__age = age  # Private property
+  def fnc(self):  # Public method to access private property
+  	return self.__age
+
+p1 = Person("Emil", 25)
+print(p1.name)  
+print(p1.fnc())  # Accessing private property via public method
+print(p1._Person__age)  # Accessing private property using name mangling
