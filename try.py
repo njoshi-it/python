@@ -1,3 +1,6 @@
+
+import json
+
 '''
 import openai
 
@@ -128,6 +131,16 @@ with open("fast.py", "r") as f:  #reading file using with to close file automati
     for line in f:
         print(line.strip())
 
-with open("fast.py") as inp, open("output.py", "w") as out:
+with open("fast.py") as inp, open("output.py", "w") as out:  #opening two files
     for line in inp:
-        out.write(line.upper())
+        out.write(line.upper()) #reading from inp and writing to out in uppercase
+
+# some JSON:
+x = '{ "name":"John", "age":30, "city":"New York"}'
+
+# parse x:
+y = json.loads(x)
+
+# the result is a Python dictionary:
+print(y)
+
