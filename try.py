@@ -139,8 +139,10 @@ with open("fast.py") as inp, open("output.py", "w") as out:  #opening two files
 x = '{ "name":"John", "age":30, "city":"New York"}'
 
 # parse x:
-y = json.loads(x)
+y = json.loads(x)       #json.loads() to parse JSON string to Python dictionary
 
 # the result is a Python dictionary:
-print(y)
+print(y)                #{'name': 'John', 'age': 30, 'city': 'New York'}
 
+z= json.dumps(y, indent=8)
+print(z)                #json.dumps() to convert Python dictionary to JSON string with indentation
