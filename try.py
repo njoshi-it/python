@@ -16,7 +16,7 @@ response = openai.ChatCompletion.create(
 # Print the AI's response
 print(response.choices[0].message.content)
 '''
-
+'''
 class Person:
     def __init__(self, name, age):  #object constructor
         self.name = name
@@ -106,3 +106,28 @@ class Outer:
 outer = Outer()
 inner = outer.Inner()  # Creating instance of inner class
 inner.display()
+
+
+class Outer:
+  def __init__(self):
+    self.name = "Emil"
+
+  class Inner:
+    def __init__(self, outer):  # Access outer class instance
+      self.outer = outer
+
+    def display(self):
+      print(f"Outer class name: {self.outer.name}")
+
+outer = Outer()
+inner = outer.Inner(outer)
+inner.display()
+'''
+
+with open("fast.py", "r") as f:  #reading file using with to close file automatically
+    for line in f:
+        print(line.strip())
+
+with open("fast.py") as inp, open("output.py", "w") as out:
+    for line in inp:
+        out.write(line.upper())
