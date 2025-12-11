@@ -59,3 +59,22 @@ my_playlist.remove_song("Bohemian Rhapsody")
 my_playlist.show_songs()
 
 
+class Person:
+  def __init__(self, fname, lname):
+    self.firstname = fname
+    self.lastname = lname
+
+  def printname(self):
+    print(self.firstname, self.lastname)
+
+class Student(Person):  #inheritance
+  def __init__(self, fname, lname):
+    super().__init__(fname, lname)
+  def printname(self):
+  	super().printname()  #method overriding
+  	print("hello override")  #additional functionality
+
+x = Student("Mike", "Olsen")
+x.printname()
+y= Student("ram", "tam")
+y.printname()
