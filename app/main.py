@@ -1,31 +1,26 @@
-from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
-from .database import Base, engine, get_db
-from . import models, schemas, crud
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+from .database import engine
+from .models import Base
+from .routers.users_html import router as user_html_router
 
-# Create tables
-Base.metadata.create_all(bind=engine)
-
+# 1️⃣ Create FastAPI app first
 app = FastAPI()
 
-@app.get("/users", response_model=list[schemas.UserRead])
-def list_users(db: Session = Depends(get_db)):
-    return crud.get_users(db)
+# 2️⃣ Setup static files (CSS)
+# This allows the HTML to load styles from /static/style.css
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-@app.get("/users/{user_id}", response_model=schemas.UserRead)
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    user = crud.get_user(db, user_id)
-    if not user:
-        raise HTTPException(404, "User not found")
-    return user
+# 3️⃣ Include routers
+app.include_router(user_html_router)
 
-@app.post("/users", response_model=schemas.UserRead)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    return crud.create_user(db, user)
+# 4️⃣ Create tables (optional, but common for dev)
+# This creates the 'users' table in the database if it doesn't exist
+Base.metadata.create_all(bind=engine)
 
-@app.delete("/users/{user_id}")
-def delete_user(user_id: int, db: Session = Depends(get_db)):
-    deleted = crud.delete_user(db, user_id)
-    if not deleted:
-        raise HTTPException(404, "User not found")
-    return {"status": "deleted"}
+# 5️⃣ Root Redirect (The Fix)
+# When you open http://127.0.0.1:8000/, go to dashboard
+@app.get("/")
+def read_root():
+    return RedirectResponse(url="/users")
